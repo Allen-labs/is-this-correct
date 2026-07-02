@@ -1,0 +1,8 @@
+{
+    "name": "is-this-correct",
+    "description": "A falsifiability-driven verification skill. Forces the agent to try to falsify its own conclusions before presenting them, letting reality (data, code, docs, tools) be the judge. Based on Karl Popper's philosophy of science. Use when answering investigative, analytical, or research questions where correctness matters.",
+    "version": "1.0.0",
+    "author": {
+        "name": "laj"
+    }
+}
