@@ -1,0 +1,4 @@
+interface:
+  display_name: "Is This Correct?"
+  short_description: "Falsify before you trust: verify non-trivial conclusions"
+  default_prompt: "Use $is-this-correct to verify this conclusion before presenting it"
