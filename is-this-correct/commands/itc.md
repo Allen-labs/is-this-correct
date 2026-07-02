@@ -4,7 +4,7 @@ description: Verify a conclusion using falsifiability-driven analysis. Pass a cl
 
 # Is This Correct?
 
-Run the `is-this-correct` skill on the user's claim or question.
+Run the falsifiability verification loop (from the `is-this-correct` skill) on the user's claim or question.
 
 ## What to do
 
