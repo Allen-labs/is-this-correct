@@ -3,12 +3,12 @@ name: is-this-correct
 description: >
   Enforce falsifiability-driven verification for conclusions where the user cannot easily
   judge correctness themselves (unfamiliar domain, complex causation, no ground truth at hand).
-  Use when you are about to state a conclusion that sounds right but could be wrong—and the
-  cost of being wrong is real (wrong fix, wrong design, misleading the user).
-  Triggers on: "is this correct", "is this true", "are you sure", "verify this claim",
-  "double-check this", "could this be wrong", or when explicitly invoked via /itc.
+  Use ONLY when you are about to state a conclusion that sounds right but could be wrong—
+  and the cost of being wrong is real (wrong fix, wrong design, misleading the user).
+  Triggers on: "is this correct", "are you sure", "verify this claim", "could this be wrong",
+  "这个对吗", "这个结论对吗", "你确定吗", "验证一下这个结论", "这个说法正确吗", or /itc.
   Do NOT use for: reading code to explain how it works, looking up API usage, debugging
-  with visible error messages, or any task where the user can directly verify the answer.
+  with visible errors, or any task where the user can directly verify the answer.
 ---
 
 # Is This Correct
