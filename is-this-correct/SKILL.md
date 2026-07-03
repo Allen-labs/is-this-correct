@@ -11,107 +11,57 @@ description: >
 
 # Is This Correct
 
-## Why this skill exists
-
-You are an induction machine: you generate plausible hypotheses from patterns, but cannot
-reliably tell a correct hypothesis from a plausible-but-wrong one. When you confabulate, you
-genuinely believe you are right—and you state unverified speculation with the same confidence
-as established fact.
-
-When a human cannot act as judge (unfamiliar domain), plausible-but-wrong answers get accepted
-as truth. This skill prevents that by forcing you to **try to prove yourself wrong before
-presenting a conclusion**, letting reality (data, code, docs, tools) be the judge.
-
-## Core principle
+You generate plausible hypotheses but cannot reliably distinguish correct from
+plausible-but-wrong—when you confabulate, you genuinely believe you are right. This skill
+forces you to **try to prove yourself wrong before presenting a conclusion**, letting
+reality (data, code, docs, tools) be the judge.
 
 > Self-consistency is a minimum gate, not proof. A conclusion is trustworthy because it
-> **survived attempts to overthrow it**, not because it sounds right. One failed falsification
-> eliminates a hypothesis; a hundred confirmations only mean it hasn't been overturned *yet*.
+> **survived attempts to overthrow it**. One failed falsification eliminates a hypothesis;
+> a hundred confirmations only mean it hasn't been overturned *yet*.
 
 ## The four-step loop
 
-Run this loop for **every non-trivial conclusion**. Do not skip steps. Do not present a
-conclusion as settled without completing all four.
+Run for **every non-trivial conclusion**. Do not present a conclusion as settled without
+all four steps.
 
-### Step 1 — Conjecture
+**Step 1 — Conjecture:** Formulate your best hypothesis. State as hypothesis, not fact.
+Include theoretical basis and cite sources.
 
-Think, search the web, read code/docs. Formulate your best hypothesis.
+**Step 2 — Confirm + Corroborate:**
+- *Confirm*: Does it produce a coherent, testable prediction? If not → back to Step 1.
+- *Corroborate*: Find *independent* voices (official docs, cross-scenario, others' results).
+  "I calculated it and it matches" = self-corroboration (weak). "Official spec says this too"
+  = independent (strong). No corroboration → flag as weak.
 
-- State it as a hypothesis, not fact: "My current hypothesis is ..."
-- Include the theoretical basis: what reasoning, analogy, or known principle supports it?
-- Cite sources (web search, official docs, code).
+**Step 3 — Falsify (core):** Try to prove yourself wrong.
+1. *Method*: "If wrong, here's how we'd discover that: ..."
+2. *Execute*: Plug in a different scenario, check measured data, run the code, query a tool.
+3. *Result*: SURVIVED or FALSIFIED. If FALSIFIED → discard, return to Step 1. Do not quietly
+   patch and pretend it was right.
 
-```
-[Hypothesis]<claim>
-[Basis]<reasoning / source>
-```
-
-### Step 2 — Confirm + Corroborate
-
-**2a. Confirm (self-consistency gate):** Does the hypothesis produce a coherent, testable
-prediction? If not, it fails here—go back to Step 1.
-
-**2b. Corroborate (independent sources):** This is NOT "find more evidence for yourself."
-It is "find *independent* voices saying the same thing":
-- Official documentation?
-- Other people's results in the same scenario?
-- Consistent across different cases/operations?
-
-Key distinction: *"I calculated it and it matches"* = self-corroboration (weak).
-*"The official spec also states this"* = independent corroboration (strong).
-
-```
-[Confirm]<self-consistency: coherent prediction? yes/no>
-[Corroborate]<independent sources: official docs? cross-scenario? yes/no>
-```
-
-If self-consistency fails → back to Step 1. No corroboration at all → flag as weak.
-
-### Step 3 — Falsify (the core)
-
-**Try to prove yourself wrong.** This is the most important step.
-
-1. **Falsification method**: "If my hypothesis is wrong, here is how we'd discover that: ..."
-2. **Execute it**: Plug in a different scenario, check against measured data, read the
-   official definition, run the code, query a tool.
-3. **Result**: SURVIVED (not overturned) or FALSIFIED (overturned)?
-
-```
-[Falsify method]<how to potentially disprove>
-[Falsify execution]<what was checked>
-[Falsify result]SURVIVED / FALSIFIED + evidence
-```
-
-If FALSIFIED → explicitly state "this hypothesis is wrong," discard it, return to Step 1.
-Do **not** quietly patch and pretend it was right.
-
-### Step 4 — Adjudicate
+**Step 4 — Adjudicate:**
 
 | Condition | Confidence |
 |-----------|-----------|
-| Consistent + corroborated + survived falsification | **High** (still "not yet overturned") |
+| Consistent + corroborated + survived | **High** (not yet overturned) |
 | Consistent + survived, no corroboration | **Medium** |
 | Consistent only, not yet falsified | **Low** |
 | Cannot provide a falsification method | **Open question** |
 
-```
-[Confidence]High / Medium / Low / Open
-```
-
-If Low or falsified → loop to Step 1. If Open → stop, tell the user explicitly: "This is an
-open question. I cannot verify it. Do not treat my answer as confirmed."
+If Low or falsified → loop to Step 1. If Open → stop, tell the user: "This is an open
+question. I cannot verify it."
 
 ## Rules
 
-1. **Never present an unfalsified hypothesis as a settled conclusion.**
-2. **"Survived" ≠ "proven correct"** — phrase as "not yet overturned."
-3. **Confabulation alert**: If constructing a new metric/formula/method with no external
-   basis, stop and flag: "This is my own construction with no external basis."
-4. **3-strike rule**: If falsified 3 times in a row, stop and tell the user: "My framework
-   is likely wrong, not just the latest hypothesis. We should use tools for ground truth or
-   question core assumptions."
-5. **Use tools when reasoning stalls**: Repeatedly falsified hypotheses mean switch to
-   tools (run code, query data, read source) for ground truth.
+1. Never present an unfalsified hypothesis as a settled conclusion.
+2. "Survived" ≠ "proven correct" — phrase as "not yet overturned."
+3. **Confabulation alert**: Constructing a new metric/formula with no external basis? Stop
+   and flag: "This is my own construction with no external basis."
+4. **3-strike rule**: Falsified 3 times in a row → stop. Tell the user: "My framework is
+   likely wrong, not just the latest hypothesis. Use tools for ground truth or question
+   core assumptions."
+5. Use tools (run code, query data, read source) when reasoning stalls.
 
 ## Output template
 
@@ -119,14 +69,14 @@ open question. I cannot verify it. Do not treat my answer as confirmed."
 ## Analysis: <topic>
 
 ### Hypothesis 1
-  [Hypothesis]<claim>
-  [Basis]<reasoning>
-  [Confirm]<self-consistency>
-  [Corroborate]<independent sources>
-  [Falsify method]<how to disprove>
-  [Falsify execution]<what checked>
-  [Falsify result]SURVIVED / FALSIFIED
-  [Confidence]High / Medium / Low / Open
+  [Hypothesis] <claim>
+  [Basis] <reasoning / source>
+  [Confirm] <self-consistency: yes/no>
+  [Corroborate] <independent sources: yes/no + detail>
+  [Falsify method] <how to disprove>
+  [Falsify execution] <what was checked>
+  [Falsify result] SURVIVED / FALSIFIED + evidence
+  [Confidence] High / Medium / Low / Open
 
 ### [Hypothesis 2 ...] (if previous was falsified)
 
@@ -137,5 +87,5 @@ open question. I cannot verify it. Do not treat my answer as confirmed."
 
 ## Reference
 
-For the full methodology background (Popper's falsifiability, practical case studies, and
-the evolution of this approach), see [references/methodology.md](references/methodology.md).
+For methodology background (Popper, case studies, failure modes), see
+[references/methodology.md](references/methodology.md).

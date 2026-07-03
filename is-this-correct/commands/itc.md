@@ -1,47 +1,18 @@
 ---
-description: Verify a conclusion using falsifiability-driven analysis. Pass a claim as argument. The agent will run the four-step loop (conjecture → confirm/corroborate → falsify → adjudicate) and report whether the claim survives.
+description: Verify a claim using the falsifiability loop. Pass a claim as argument (e.g. /itc 0.1+0.2==0.3 is True).
 ---
 
-# Is This Correct?
+# /itc
 
-Run the falsifiability verification loop (from the `is-this-correct` skill) on the user's claim or question.
+Verify the user's claim or question using the four-step loop defined in `SKILL.md`:
+**Conjecture → Confirm+Corroborate → Falsify → Adjudicate**.
 
-## What to do
+Run the full loop from `SKILL.md` (read it if not already loaded), following all rules
+and the output template specified there.
 
-Take the argument (the claim or question the user passed) and apply the four-step falsifiability loop from `SKILL.md`:
+## Slash-command specifics
 
-1. **Conjecture** — Restate the claim as a hypothesis; identify its theoretical basis.
-2. **Confirm + Corroborate** — Check self-consistency, then find *independent* sources (official docs, cross-scenario behavior, other people's results).
-3. **Falsify** — Specify how the hypothesis could be disproven, then actually try to disprove it (plug in a different scenario, check measured data, run the code, query a tool).
-4. **Adjudicate** — Assign confidence: High / Medium / Low / Open.
-
-## Output format
-
-```
-## Verification: <the claim>
-
-### Hypothesis
-  [Hypothesis] <restated claim>
-  [Basis] <reasoning / source>
-
-### Confirm + Corroborate
-  [Confirm] <self-consistency check>
-  [Corroborate] <independent sources>
-
-### Falsify
-  [Falsify method] <how to disprove>
-  [Falsify execution] <what was checked>
-  [Falsify result] SURVIVED / FALSIFIED
-
-### Adjudicate
-  [Confidence] High / Medium / Low / Open
-  <what remains unverified>
-```
-
-## Rules
-
-- Never present an unfalsified hypothesis as a settled conclusion.
-- "Survived" ≠ "proven correct" — it means "not yet overturned."
-- If constructing a new metric/formula with no external basis, flag it explicitly.
-- If falsified 3 times in a row, stop and tell the user the framework is likely wrong.
-- If the question cannot be falsified, mark it **Open** and tell the user explicitly.
+- Treat the argument as the claim to verify.
+- If the argument is a question ("how does X work?"), first extract a falsifiable claim
+  from it, then verify that claim.
+- Always show the structured output from `SKILL.md`'s template, even if the result is Open.
