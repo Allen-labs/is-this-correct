@@ -1,12 +1,14 @@
 ---
 name: is-this-correct
 description: >
-  Enforce falsifiability-driven verification for non-trivial conclusions. Use when answering
-  investigative, analytical, or research questions—especially in domains the user may not
-  master—where presenting a plausible-but-wrong answer as settled truth carries real cost.
-  Triggers on: "investigate", "analyze", "research", "figure out why", "is this correct",
-  "how does X work", "deep dive", "verify", or any multi-step reasoning where correctness matters.
-  Do NOT use for simple lookups, creative tasks, or subjective preferences.
+  Enforce falsifiability-driven verification for conclusions where the user cannot easily
+  judge correctness themselves (unfamiliar domain, complex causation, no ground truth at hand).
+  Use when you are about to state a conclusion that sounds right but could be wrong—and the
+  cost of being wrong is real (wrong fix, wrong design, misleading the user).
+  Triggers on: "is this correct", "is this true", "are you sure", "verify this claim",
+  "double-check this", "could this be wrong", or when explicitly invoked via /itc.
+  Do NOT use for: reading code to explain how it works, looking up API usage, debugging
+  with visible error messages, or any task where the user can directly verify the answer.
 ---
 
 # Is This Correct
